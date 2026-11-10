@@ -968,6 +968,287 @@
       color: var(--text-main);
     }
 
+    /* ========================================================================= */
+    /* MODO ENTRENAMIENTO (EXTENSIÓN)                                            */
+    /* ========================================================================= */
+    .training-hero {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .training-hero-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .training-hero h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .training-hero p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .training-scope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .scope-card {
+      background: var(--tag-bg);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .scope-card:hover {
+      border-color: var(--primary);
+    }
+
+    .scope-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .scope-card-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scope-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .training-section-select-wrap {
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .training-section-select-wrap.visible {
+      display: block;
+    }
+
+    .training-toolbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .training-counters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .training-counters strong {
+      color: var(--text-main);
+    }
+
+    .training-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-evaluate {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-evaluate:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 12px rgba(16, 185, 129, 0.38);
+    }
+
+    .option-item.trainable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .option-item.trainable:hover {
+      border-color: var(--primary);
+    }
+
+    .option-item.is-selected {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .option-item.is-selected .opt-key {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .option-item.is-wrong {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+
+    [data-theme="dark"] .option-item.is-wrong {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #f87171;
+      color: #fecaca;
+    }
+
+    .option-item.is-wrong .opt-key {
+      background: #ef4444;
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    .wrong-indicator {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #dc2626;
+      white-space: nowrap;
+      padding-left: 8px;
+    }
+
+    [data-theme="dark"] .wrong-indicator {
+      color: #fca5a5;
+    }
+
+    .results-screen {
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-lg);
+      display: none;
+    }
+
+    .results-screen.visible {
+      display: block;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .results-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .results-scope-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric-card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .metric-value.success { color: #10b981; }
+    .metric-value.danger { color: #ef4444; }
+    .metric-value.neutral { color: #64748b; }
+    .metric-value.primary { color: var(--primary); }
+
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .results-progress-bar {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--border-color);
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 16px;
+    }
+
+    .prog-seg-ok { background: #10b981; height: 100%; }
+    .prog-seg-err { background: #ef4444; height: 100%; }
+    .prog-seg-skip { background: #94a3b8; height: 100%; }
+
     /* Scroll to top button */
     .scroll-top {
       position: fixed;
@@ -1051,6 +1332,11 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
           <span>Banco de Preguntas</span>
           <span class="tab-pill" id="tab-questions-count">2537</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-training" onclick="switchMainTab('training')">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Entrenamiento</span>
+          <span class="tab-pill" style="background:#dcfce7; color:#166534;">Evaluar</span>
         </button>
         <button class="tab-btn" id="tab-btn-formulas" onclick="switchMainTab('formulas')">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
@@ -1171,6 +1457,115 @@
 
       <div class="formula-card-grid" id="formula-cards-directory">
         <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 3: MODO ENTRENAMIENTO -->
+    <div id="tab-training-content" class="tab-content">
+      <div class="training-hero">
+        <div class="training-hero-header">
+          <div>
+            <h2>Modo Entrenamiento EGEL Plus</h2>
+            <p>Responde sin respuestas visibles y evalúa tu desempeño al finalizar sobre el alcance seleccionado.</p>
+          </div>
+          <button class="btn-toggle" onclick="resetTrainingSession()">Reiniciar Sesión</button>
+        </div>
+
+        <div class="training-scope-grid">
+          <button type="button" class="scope-card active" id="scope-btn-full" onclick="setTrainingScope('full')">
+            <div class="scope-card-title">
+              <span>Banco Completo</span>
+              <span class="tab-pill" id="scope-full-count">2537</span>
+            </div>
+            <div class="scope-card-desc">Cargar y contestar la totalidad de los 2537 reactivos del simulador.</div>
+          </button>
+
+          <button type="button" class="scope-card" id="scope-btn-section" onclick="setTrainingScope('section')">
+            <div class="scope-card-title">
+              <span>Por Apartado</span>
+              <span class="tab-pill" id="scope-section-pill">Sección</span>
+            </div>
+            <div class="scope-card-desc">Filtrar y contestar de manera independiente los reactivos de un apartado específico.</div>
+          </button>
+        </div>
+
+        <div class="training-section-select-wrap" id="training-section-select-wrap">
+          <label class="select-label" for="training-section-dropdown">SELECCIONA EL APARTADO DE ENTRENAMIENTO:</label>
+          <select id="training-section-dropdown" class="formula-dropdown" onchange="onTrainingSectionChange(this.value)"></select>
+        </div>
+      </div>
+
+      <!-- Pantalla de Resultados -->
+      <section class="results-screen" id="training-results-screen" aria-live="polite">
+        <div class="results-header">
+          <div class="results-title" id="results-title-text">Resultados de Entrenamiento</div>
+          <span class="results-scope-tag" id="results-scope-label">Banco Completo</span>
+        </div>
+
+        <div class="results-progress-bar" id="results-progress-bar">
+          <div class="prog-seg-ok" id="prog-seg-ok" style="width:0%"></div>
+          <div class="prog-seg-err" id="prog-seg-err" style="width:0%"></div>
+          <div class="prog-seg-skip" id="prog-seg-skip" style="width:0%"></div>
+        </div>
+
+        <div class="results-grid">
+          <div class="metric-card">
+            <div class="metric-label">Aciertos</div>
+            <div class="metric-value success" id="res-aciertos">0</div>
+            <div class="metric-sub">Respuestas correctas</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Errores</div>
+            <div class="metric-value danger" id="res-errores">0</div>
+            <div class="metric-sub">Respuestas incorrectas</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Sin contestar</div>
+            <div class="metric-value neutral" id="res-sin-contestar">0</div>
+            <div class="metric-sub">Preguntas omitidas</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Calificación Final</div>
+            <div class="metric-value primary" id="res-calificacion">0.00%</div>
+            <div class="metric-sub" id="res-calificacion-sub">Sobre 0 preguntas</div>
+          </div>
+        </div>
+
+        <div class="training-actions">
+          <button type="button" class="btn-toggle" onclick="scrollToTrainingQuestions()">Revisar Reactivos</button>
+          <button type="button" class="btn-evaluate" onclick="resetTrainingSession()">Nuevo Entrenamiento</button>
+        </div>
+      </section>
+
+      <!-- Barra de Sesión y Botón Evaluar -->
+      <div class="training-toolbar" id="training-toolbar">
+        <div class="training-counters" id="training-counters">
+          <span>Alcance: <strong id="tr-scope-name">Banco Completo</strong></span>
+          <span>Total bloque: <strong id="tr-total-count">0</strong></span>
+          <span>Contestadas: <strong id="tr-answered-count">0</strong></span>
+          <span>Sin contestar: <strong id="tr-unanswered-count">0</strong></span>
+        </div>
+        <div class="training-actions">
+          <button type="button" class="btn-evaluate" id="training-evaluate-btn" onclick="evaluateTrainingSession()">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Evaluar
+          </button>
+        </div>
+      </div>
+
+      <div class="cards-list" id="training-cards-list"></div>
+
+      <div style="display:flex; justify-content:center; margin: 16px 0;">
+        <button type="button" class="btn-evaluate" id="training-evaluate-btn-bottom" onclick="evaluateTrainingSession()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Evaluar Entrenamiento
+        </button>
+      </div>
+
+      <div class="pagination" id="training-pagination-bar">
+        <button class="page-btn" id="training-prev-page" onclick="changeTrainingPage(-1)">&larr; Anterior</button>
+        <span class="page-info" id="training-page-info">Página 1</span>
+        <button class="page-btn" id="training-next-page" onclick="changeTrainingPage(1)">Siguiente &rarr;</button>
       </div>
     </div>
   </main>
@@ -2436,24 +2831,22 @@
     function switchMainTab(tabName) {
       currentTab = tabName;
       const tabQuestionsBtn = document.getElementById('tab-btn-questions');
+      const tabTrainingBtn = document.getElementById('tab-btn-training');
       const tabFormulasBtn = document.getElementById('tab-btn-formulas');
       const tabQuestionsContent = document.getElementById('tab-questions-content');
+      const tabTrainingContent = document.getElementById('tab-training-content');
       const tabFormulasContent = document.getElementById('tab-formulas-content');
       const questionsHeaderControls = document.getElementById('questions-header-controls');
 
-      if (tabName === 'questions') {
-        tabQuestionsBtn.classList.add('active');
-        tabFormulasBtn.classList.remove('active');
-        tabQuestionsContent.classList.add('active');
-        tabFormulasContent.classList.remove('active');
-        questionsHeaderControls.style.display = 'block';
-      } else {
-        tabFormulasBtn.classList.add('active');
-        tabQuestionsBtn.classList.remove('active');
-        tabFormulasContent.classList.add('active');
-        tabQuestionsContent.classList.remove('active');
-        questionsHeaderControls.style.display = 'none';
-      }
+      tabQuestionsBtn.classList.toggle('active', tabName === 'questions');
+      tabTrainingBtn.classList.toggle('active', tabName === 'training');
+      tabFormulasBtn.classList.toggle('active', tabName === 'formulas');
+
+      tabQuestionsContent.classList.toggle('active', tabName === 'questions');
+      tabTrainingContent.classList.toggle('active', tabName === 'training');
+      tabFormulasContent.classList.toggle('active', tabName === 'formulas');
+
+      questionsHeaderControls.style.display = (tabName === 'questions') ? 'block' : 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2851,9 +3244,262 @@
       }
     }
 
+    // ==========================================================
+    // LOGICA DEL MODO ENTRENAMIENTO (EXTENSIÓN INDEPENDIENTE)
+    // ==========================================================
+    let trainingScope = 'full'; // 'full' | 'section'
+    let trainingSelectedSection = '';
+    let trainingQuestions = [];
+    let trainingSelections = {};
+    let trainingEvaluated = false;
+    let trainingPage = 1;
+    const trainingPerPage = 25;
+
+    function initTrainingMode() {
+      const dropdown = document.getElementById('training-section-dropdown');
+      const uniqueSections = [];
+      QUESTIONS_DATA.forEach(q => {
+        if (q.section && uniqueSections.indexOf(q.section) === -1) {
+          uniqueSections.push(q.section);
+        }
+      });
+      trainingSelectedSection = uniqueSections[0] || '';
+      dropdown.innerHTML = uniqueSections.map(sec => {
+        const count = QUESTIONS_DATA.filter(q => q.section === sec).length;
+        return '<option value="' + escapeHtml(sec) + '">' + escapeHtml(sec) + ' (' + count + ' reactivos)</option>';
+      }).join('');
+      const trainingListEl = document.getElementById('training-cards-list');
+      if (trainingListEl) {
+        trainingListEl.addEventListener('click', (e) => {
+          const item = e.target.closest('.option-item[data-qidx]');
+          if (!item || trainingEvaluated) return;
+          const qIdx = parseInt(item.getAttribute('data-qidx'), 10);
+          const optKey = item.getAttribute('data-optkey');
+          if (!isNaN(qIdx) && optKey) {
+            selectTrainingOption(qIdx, optKey);
+          }
+        });
+      }
+      loadTrainingQuestions();
+    }
+
+    function setTrainingScope(scope) {
+      trainingScope = scope;
+      document.getElementById('scope-btn-full').classList.toggle('active', scope === 'full');
+      document.getElementById('scope-btn-section').classList.toggle('active', scope === 'section');
+      document.getElementById('training-section-select-wrap').classList.toggle('visible', scope === 'section');
+      resetTrainingSession();
+    }
+
+    function onTrainingSectionChange(sectionName) {
+      trainingSelectedSection = sectionName;
+      if (trainingScope === 'section') {
+        resetTrainingSession();
+      }
+    }
+
+    function loadTrainingQuestions() {
+      if (trainingScope === 'full') {
+        trainingQuestions = QUESTIONS_DATA.slice();
+      } else {
+        trainingQuestions = QUESTIONS_DATA.filter(q => q.section === trainingSelectedSection);
+      }
+      trainingPage = 1;
+      updateTrainingCounters();
+      renderTrainingPage();
+    }
+
+    function resetTrainingSession() {
+      trainingSelections = {};
+      trainingEvaluated = false;
+      const resultsScreen = document.getElementById('training-results-screen');
+      if (resultsScreen) resultsScreen.classList.remove('visible');
+      loadTrainingQuestions();
+    }
+
+    function updateTrainingCounters() {
+      const total = trainingQuestions.length;
+      let answered = 0;
+      for (let i = 0; i < total; i++) {
+        if (trainingSelections[i]) answered++;
+      }
+      const unanswered = total - answered;
+      const scopeLabel = trainingScope === 'full' ? 'Banco Completo' : trainingSelectedSection;
+      document.getElementById('tr-scope-name').textContent = scopeLabel;
+      document.getElementById('tr-total-count').textContent = total;
+      document.getElementById('tr-answered-count').textContent = answered;
+      document.getElementById('tr-unanswered-count').textContent = unanswered;
+    }
+
+    function selectTrainingOption(qIdx, optKey) {
+      if (trainingEvaluated) return;
+      const normalized = (optKey || '').toUpperCase().trim();
+      if (trainingSelections[qIdx] === normalized) {
+        delete trainingSelections[qIdx];
+      } else {
+        trainingSelections[qIdx] = normalized;
+      }
+      updateTrainingCounters();
+      renderTrainingPage();
+    }
+
+    function evaluateTrainingSession() {
+      const total = trainingQuestions.length;
+      let aciertos = 0;
+      let errores = 0;
+      let sinContestar = 0;
+
+      for (let i = 0; i < total; i++) {
+        const chosen = trainingSelections[i];
+        const correct = (trainingQuestions[i].answer || '').toUpperCase().trim();
+        if (!chosen) {
+          sinContestar++;
+        } else if (chosen === correct) {
+          aciertos++;
+        } else {
+          errores++;
+        }
+      }
+
+      const pct = total > 0 ? (aciertos / total) * 100 : 0;
+      const scale10 = total > 0 ? (aciertos / total) * 10 : 0;
+      const scopeLabel = trainingScope === 'full'
+        ? 'Banco Completo (' + total + ' reactivos)'
+        : trainingSelectedSection + ' (' + total + ' reactivos)';
+
+      trainingEvaluated = true;
+
+      document.getElementById('results-scope-label').textContent = scopeLabel;
+      document.getElementById('res-aciertos').textContent = aciertos;
+      document.getElementById('res-errores').textContent = errores;
+      document.getElementById('res-sin-contestar').textContent = sinContestar;
+      document.getElementById('res-calificacion').textContent = pct.toFixed(2) + '%';
+      document.getElementById('res-calificacion-sub').textContent = scale10.toFixed(2) + ' / 10 — Sobre ' + total + ' preguntas';
+
+      const pctOk = total > 0 ? (aciertos / total) * 100 : 0;
+      const pctErr = total > 0 ? (errores / total) * 100 : 0;
+      const pctSkip = total > 0 ? (sinContestar / total) * 100 : 0;
+      document.getElementById('prog-seg-ok').style.width = pctOk + '%';
+      document.getElementById('prog-seg-err').style.width = pctErr + '%';
+      document.getElementById('prog-seg-skip').style.width = pctSkip + '%';
+
+      const resultsScreen = document.getElementById('training-results-screen');
+      resultsScreen.classList.add('visible');
+      renderTrainingPage();
+      resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function scrollToTrainingQuestions() {
+      const toolbar = document.getElementById('training-toolbar');
+      if (toolbar) toolbar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function changeTrainingPage(delta) {
+      const totalPages = Math.max(1, Math.ceil(trainingQuestions.length / trainingPerPage));
+      const next = trainingPage + delta;
+      if (next >= 1 && next <= totalPages) {
+        trainingPage = next;
+        renderTrainingPage();
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+      }
+    }
+
+    function renderTrainingPage() {
+      const listEl = document.getElementById('training-cards-list');
+      const pagBar = document.getElementById('training-pagination-bar');
+      const pageInfoEl = document.getElementById('training-page-info');
+      const prevBtn = document.getElementById('training-prev-page');
+      const nextBtn = document.getElementById('training-next-page');
+
+      const total = trainingQuestions.length;
+      if (total === 0) {
+        listEl.innerHTML = '';
+        pagBar.style.display = 'none';
+        return;
+      }
+
+      const totalPages = Math.ceil(total / trainingPerPage);
+      if (trainingPage > totalPages) trainingPage = totalPages;
+      if (trainingPage < 1) trainingPage = 1;
+
+      const startIndex = (trainingPage - 1) * trainingPerPage;
+      const endIndex = Math.min(startIndex + trainingPerPage, total);
+      const pageItems = trainingQuestions.slice(startIndex, endIndex);
+
+      listEl.innerHTML = pageItems.map((q, localIdx) => {
+        const globalIdx = startIndex + localIdx;
+        const userChoice = trainingSelections[globalIdx] || '';
+        const correctAns = (q.answer || '').toUpperCase().trim();
+
+        const optionsHtml = q.options.map(opt => {
+          const optKey = (opt.key || '').toUpperCase().trim();
+          const isSelected = userChoice === optKey;
+          const isCorrect = correctAns === optKey;
+
+          let cls = 'option-item';
+          if (!trainingEvaluated) {
+            cls += ' trainable';
+            if (isSelected) cls += ' is-selected';
+          } else {
+            if (isCorrect) cls += ' is-correct';
+            else if (isSelected && !isCorrect) cls += ' is-wrong';
+          }
+
+          let indicatorHtml = '';
+          if (trainingEvaluated && isCorrect) {
+            indicatorHtml = '<span class="correct-indicator"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Correcta</span>';
+          } else if (trainingEvaluated && isSelected && !isCorrect) {
+            indicatorHtml = '<span class="wrong-indicator">Tu respuesta</span>';
+          }
+
+          const dataAttr = trainingEvaluated ? '' : ' data-qidx="' + globalIdx + '" data-optkey="' + escapeHtml(optKey) + '"';
+          return '<div class="' + cls + '"' + dataAttr + '>' +
+            '<span class="opt-key">' + escapeHtml(opt.key) + '</span>' +
+            '<div class="opt-content">' + escapeHtml(opt.text) + '</div>' +
+            indicatorHtml +
+          '</div>';
+        }).join('');
+
+        const contextHtml = q.context ? '<div class="q-context">' + escapeHtml(q.context) + '</div>' : '';
+        const statusBadge = trainingEvaluated
+          ? (!userChoice
+              ? '<span class="badge-number" style="color:#64748b;">Sin contestar</span>'
+              : (userChoice === correctAns
+                  ? '<span class="badge-number" style="color:#10b981; border-color:#10b981;">Acierto</span>'
+                  : '<span class="badge-number" style="color:#ef4444; border-color:#ef4444;">Error</span>'))
+          : (userChoice ? '<span class="badge-number" style="color:var(--primary);">Respondida: ' + userChoice + '</span>' : '');
+
+        const explanationHtml = (trainingEvaluated && q.explanation)
+          ? '<div class="explanation-box"><div class="explanation-title">Argumentación / Justificación:</div><div>' + escapeHtml(q.explanation) + '</div></div>'
+          : '';
+
+        return '<article class="q-card">' +
+          '<div class="q-meta"><div class="q-badges">' +
+            '<span class="badge-section">' + escapeHtml(q.section) + '</span>' +
+            '<span class="badge-number">#' + (globalIdx + 1) + '</span>' +
+            statusBadge +
+          '</div></div>' +
+          contextHtml +
+          '<div class="q-text">' + escapeHtml(q.question) + '</div>' +
+          '<div class="options-grid">' + optionsHtml + '</div>' +
+          explanationHtml +
+        '</article>';
+      }).join('');
+
+      if (totalPages > 1) {
+        pagBar.style.display = 'flex';
+        pageInfoEl.textContent = 'Página ' + trainingPage + ' de ' + totalPages + ' (' + (startIndex + 1) + ' - ' + endIndex + ' de ' + total + ')';
+        prevBtn.disabled = trainingPage === 1;
+        nextBtn.disabled = trainingPage === totalPages;
+      } else {
+        pagBar.style.display = 'none';
+      }
+    }
+
     // Initialize Components
     filterAndRender();
     initFormulasSection();
+    initTrainingMode();
   </script>
 </body>
 </html>
