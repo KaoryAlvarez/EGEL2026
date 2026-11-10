@@ -167,11 +167,96 @@
 
             @media screen and (-webkit-min-device-pixel-ratio: 0) {
                 .staticrypt-form input[type="password"],
-                input[type="text"] {
+                input[type="text"],
+                input[type="email"] {
                     font-size: 16px;
                 }
             }
+
+            .egel-step-badge {
+                display: inline-block;
+                background: #e8f5e9;
+                color: #2e7d32;
+                font-size: 11px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                padding: 4px 10px;
+                border-radius: 12px;
+                margin-bottom: 8px;
+            }
+
+            .egel-field-label {
+                display: block;
+                text-align: left;
+                font-size: 12px;
+                font-weight: bold;
+                color: #444;
+                margin-bottom: 5px;
+            }
+
+            .egel-input-box {
+                position: relative;
+                background: #f2f2f2;
+                width: 100%;
+                margin: 0 0 14px;
+                box-sizing: border-box;
+                border-left: 3px solid #4CAF50;
+            }
+
+            .egel-input-box input {
+                background: inherit;
+                border: 0;
+                box-sizing: border-box;
+                font-size: 14px;
+                outline: 0;
+                padding: 14px 15px;
+                width: 100%;
+            }
+
+            .egel-user-summary {
+                background: #f1f8e9;
+                border: 1px solid #c5e1a5;
+                border-radius: 6px;
+                padding: 10px 12px;
+                margin-bottom: 15px;
+                text-align: left;
+                font-size: 12.5px;
+                color: #33691e;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .egel-user-summary-info {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .egel-change-user-btn {
+                background: transparent;
+                border: 1px solid #7cb342;
+                color: #33691e;
+                font-size: 11px;
+                padding: 3px 7px;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 8px;
+                flex-shrink: 0;
+            }
+
+            .egel-error-alert {
+                background: #ffebee;
+                border-left: 4px solid #e53935;
+                color: #b71c1c;
+                font-size: 12.5px;
+                padding: 10px 12px;
+                margin-bottom: 14px;
+                text-align: left;
+                line-height: 1.4;
+            }
         </style>
+        <script src="egel-security.js"></script>
     </head>
 
     <body class="staticrypt-body">
@@ -183,20 +268,61 @@
             <div class="staticrypt-page">
                 <div class="staticrypt-form">
                     <div class="staticrypt-instructions">
+                        <span id="egel-step-indicator" class="egel-step-badge">Paso 1 de 2 · Identificación</span>
                         <p class="staticrypt-title">Solo usuarios autenticados</p>
-                        <p>No compartas tu contraseña, ya que podrías perder acceso a tu Simulador.</p>
+                        <p id="egel-step-subtitle">Ingresa tu primer nombre y correo antes de introducir tu contraseña de acceso.</p>
                     </div>
 
                     <hr class="staticrypt-hr" />
 
-                    <form id="staticrypt-form" action="#" method="post">
+                    <div id="egel-error-box" class="egel-error-alert hidden"></div>
+
+                    <!-- PASO 1: IDENTIFICACIÓN PREVIA OBLIGATORIA -->
+                    <form id="egel-identification-form" action="#" method="post">
+                        <label class="egel-field-label" for="egel-first-name">Primer Nombre *</label>
+                        <div class="egel-input-box">
+                            <input
+                                id="egel-first-name"
+                                type="text"
+                                name="firstName"
+                                placeholder="Ej. Carlos"
+                                autocomplete="given-name"
+                                required
+                                autofocus
+                            />
+                        </div>
+
+                        <label class="egel-field-label" for="egel-user-email">Correo electrónico / ID de usuario *</label>
+                        <div class="egel-input-box">
+                            <input
+                                id="egel-user-email"
+                                type="email"
+                                name="userEmail"
+                                placeholder="usuario@correo.com"
+                                autocomplete="email"
+                                required
+                            />
+                        </div>
+
+                        <input type="submit" class="staticrypt-decrypt-button" value="CONTINUAR" />
+                    </form>
+
+                    <!-- PASO 2: DESBLOQUEO DEL SIMULADOR CON CONTRASEÑA -->
+                    <form id="staticrypt-form" class="hidden" action="#" method="post">
+                        <div class="egel-user-summary">
+                            <div class="egel-user-summary-info">
+                                <div><strong>Usuario:</strong> <span id="egel-summary-name"></span></div>
+                                <div><strong>Correo:</strong> <span id="egel-summary-email"></span></div>
+                            </div>
+                            <button type="button" id="egel-back-to-step1" class="egel-change-user-btn">Editar</button>
+                        </div>
+
                         <div class="staticrypt-password-container">
                             <input
                                 id="staticrypt-password"
                                 type="password"
                                 name="password"
                                 placeholder="Password"
-                                autofocus
                             />
 
                             <img
@@ -828,31 +954,109 @@ exports.init = init;
             const templateConfig = {
                 rememberExpirationKey: "staticrypt_expiration",
                 rememberPassphraseKey: "staticrypt_passphrase",
-                replaceHtmlCallback: null,
+                replaceHtmlCallback: function (plainHTML) {
+                    if (window.EGELSecurity) {
+                        window.EGELSecurity.recordPasswordAttempt(true);
+                    }
+                    document.write(plainHTML + '<script src="egel-security.js" data-context="unlocked"><\/script>');
+                    document.close();
+                },
                 clearLocalStorageCallback: null,
             };
 
             // init the staticrypt engine
             const staticrypt = staticryptInitiator.init(staticryptConfig, templateConfig);
 
-            // try to automatically decrypt on load if there is a saved password
+            let identifiedUser = null;
+
+            function showFormError(msg) {
+                const errBox = document.getElementById("egel-error-box");
+                if (!errBox) return;
+                if (!msg) {
+                    errBox.textContent = "";
+                    errBox.classList.add("hidden");
+                } else {
+                    errBox.textContent = msg;
+                    errBox.classList.remove("hidden");
+                }
+            }
+
+            // Inicialización en carga: verificar bloqueo de dispositivo y mostrar Paso 1 (Identificación)
             window.onload = async function () {
-                const { isSuccessful } = await staticrypt.handleDecryptOnLoad();
-
-                // if we didn't decrypt anything on load, show the password prompt. Otherwise the content has already been
-                // replaced, no need to do anything
-                if (!isSuccessful) {
-                    // hide loading screen
-                    document.getElementById("staticrypt_loading").classList.add("hidden");
-                    document.getElementById("staticrypt_content").classList.remove("hidden");
-                    document.getElementById("staticrypt-password").focus();
-
-                    // show the remember me checkbox
-                    if (isRememberEnabled) {
-                        document.getElementById("staticrypt-remember-label").classList.remove("hidden");
+                if (window.EGELSecurity) {
+                    window.EGELSecurity.detectPublicIP();
+                    const initialCheck = window.EGELSecurity.checkIsBlocked({});
+                    if (initialCheck.blocked) {
+                        window.EGELSecurity.enforceImmediateRevocation(initialCheck);
+                        return;
                     }
                 }
+
+                // Ocultar spinner y mostrar Paso 1 (Identificación de Primer Nombre + Correo)
+                document.getElementById("staticrypt_loading").classList.add("hidden");
+                document.getElementById("staticrypt_content").classList.remove("hidden");
+                const firstNameInput = document.getElementById("egel-first-name");
+                if (firstNameInput) {
+                    firstNameInput.focus();
+                }
+
+                if (isRememberEnabled) {
+                    document.getElementById("staticrypt-remember-label").classList.remove("hidden");
+                }
             };
+
+            // Paso 1: Envío de Primer Nombre y Correo Electrónico
+            document.getElementById("egel-identification-form").addEventListener("submit", function (e) {
+                e.preventDefault();
+                showFormError("");
+
+                const firstName = document.getElementById("egel-first-name").value.trim();
+                const userEmail = document.getElementById("egel-user-email").value.trim();
+
+                if (!firstName || firstName.length < 2) {
+                    showFormError("Por favor ingresa tu Primer Nombre válido para continuar.");
+                    document.getElementById("egel-first-name").focus();
+                    return;
+                }
+
+                if (!userEmail || !userEmail.includes("@")) {
+                    showFormError("Por favor ingresa un correo electrónico válido.");
+                    document.getElementById("egel-user-email").focus();
+                    return;
+                }
+
+                if (window.EGELSecurity) {
+                    const regResult = window.EGELSecurity.registerIdentifiedUser(firstName, userEmail);
+                    if (!regResult.allowed) {
+                        window.EGELSecurity.enforceImmediateRevocation(regResult.blockResult);
+                        return;
+                    }
+                }
+
+                identifiedUser = { firstName, email: userEmail };
+
+                // Pasar al Paso 2 (Contraseña de StatiCrypt)
+                document.getElementById("egel-summary-name").textContent = firstName;
+                document.getElementById("egel-summary-email").textContent = userEmail;
+                document.getElementById("egel-step-indicator").textContent = "Paso 2 de 2 · Contraseña de Acceso";
+                document.getElementById("egel-step-subtitle").textContent =
+                    "No compartas tu contraseña, ya que podrías perder acceso a tu Simulador.";
+
+                document.getElementById("egel-identification-form").classList.add("hidden");
+                document.getElementById("staticrypt-form").classList.remove("hidden");
+                document.getElementById("staticrypt-password").focus();
+            });
+
+            // Botón para regresar al Paso 1 y editar nombre/correo antes de desbloquear
+            document.getElementById("egel-back-to-step1").addEventListener("click", function () {
+                showFormError("");
+                document.getElementById("staticrypt-form").classList.add("hidden");
+                document.getElementById("egel-identification-form").classList.remove("hidden");
+                document.getElementById("egel-step-indicator").textContent = "Paso 1 de 2 · Identificación";
+                document.getElementById("egel-step-subtitle").textContent =
+                    "Ingresa tu primer nombre y correo antes de introducir tu contraseña de acceso.";
+                document.getElementById("egel-first-name").focus();
+            });
 
             // toggle password visibility
             const toggleIcon = document.querySelector(".staticrypt-toggle-password-visibility");
@@ -876,9 +1080,27 @@ exports.init = init;
                 }
             });
 
-            // handle password form submission
+            // Paso 2: Envío de contraseña para desencriptar el Simulador
             document.getElementById("staticrypt-form").addEventListener("submit", async function (e) {
                 e.preventDefault();
+                showFormError("");
+
+                if (!identifiedUser || !identifiedUser.firstName || !identifiedUser.email) {
+                    document.getElementById("egel-back-to-step1").click();
+                    showFormError("Debes ingresar tu Primer Nombre y Correo antes de desbloquear.");
+                    return;
+                }
+
+                if (window.EGELSecurity) {
+                    const blockRes = window.EGELSecurity.checkIsBlocked({
+                        firstName: identifiedUser.firstName,
+                        email: identifiedUser.email
+                    });
+                    if (blockRes.blocked) {
+                        window.EGELSecurity.enforceImmediateRevocation(blockRes);
+                        return;
+                    }
+                }
 
                 const password = document.getElementById("staticrypt-password").value,
                     isRememberChecked = document.getElementById("staticrypt-remember").checked;
@@ -886,6 +1108,10 @@ exports.init = init;
                 const { isSuccessful } = await staticrypt.handleDecryptionOfPage(password, isRememberChecked);
 
                 if (!isSuccessful) {
+                    if (window.EGELSecurity) {
+                        window.EGELSecurity.recordPasswordAttempt(false);
+                    }
+                    showFormError("Contraseña incorrecta. Verifica tus credenciales e inténtalo de nuevo.");
                     alert(templateError);
                 }
             });
